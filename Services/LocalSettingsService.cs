@@ -90,12 +90,5 @@ public class LocalSettingsService
     private sealed class LocalSettingsFile
     {
         public Dictionary<string, string> ConnectionStrings { get; set; } = new();
-        public SetupAdminSettings SetupAdmin { get; set; } = new();
-    }
-
-    private sealed class SetupAdminSettings
-    {
-        public string Email { get; set; } = "setup@eventhub.local";
-        public string Password { get; set; } = "SetupAdmin123!";
     }
 }
