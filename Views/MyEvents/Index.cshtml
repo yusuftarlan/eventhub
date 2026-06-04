@@ -1,0 +1,13 @@
+@model List<EventCardViewModel>
+@{
+    ViewData["Title"] = "Etkinliklerim";
+}
+
+<div class="page-heading"><h1>Etkinliklerim</h1><p>Katıldığınız etkinlikler.</p></div>
+<div class="row g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 col-xl-4"><partial name="_EventCard" model="item" /></div>
+    }
+</div>
+@if (!Model.Any()) { <div class="alert alert-info">Henüz bir etkinliğe katılmadınız.</div> }

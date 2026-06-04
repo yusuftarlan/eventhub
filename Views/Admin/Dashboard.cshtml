@@ -1,0 +1,26 @@
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Paneli";
+}
+
+<div class="page-heading"><h1>Admin Paneli</h1><p>Sistemin genel durumunu izleyin.</p></div>
+<div class="row g-3 mb-4">
+    <div class="col-md-3"><div class="metric-card"><span>Etkinlik</span><strong>@Model.TotalEvents</strong></div></div>
+    <div class="col-md-3"><div class="metric-card"><span>Kullanıcı</span><strong>@Model.TotalUsers</strong></div></div>
+    <div class="col-md-3"><div class="metric-card"><span>Kategori</span><strong>@Model.TotalCategories</strong></div></div>
+    <div class="col-md-3"><div class="metric-card"><span>Katılım</span><strong>@Model.TotalParticipations</strong></div></div>
+</div>
+
+<div class="d-flex gap-2 mb-4">
+    <a class="btn btn-outline-primary" href="/Admin/Events">Tüm Etkinlikler</a>
+    <a class="btn btn-outline-primary" href="/Admin/Categories">Kategoriler</a>
+    <a class="btn btn-outline-primary" href="/Admin/Users">Kullanıcılar</a>
+</div>
+
+<h2 class="h4 mb-3">En Çok Katılım Alan 5 Etkinlik</h2>
+<div class="row g-4">
+    @foreach (var item in Model.TopEvents)
+    {
+        <div class="col-md-6 col-xl-4"><partial name="_EventCard" model="item" /></div>
+    }
+</div>

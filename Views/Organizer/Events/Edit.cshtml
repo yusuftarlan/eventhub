@@ -1,0 +1,14 @@
+@model EventFormViewModel
+@{
+    ViewData["Title"] = "Etkinlik Düzenle";
+}
+
+<h1 class="h3 mb-4">Etkinlik Düzenle</h1>
+<form method="post">
+    <partial name="~/Views/Organizer/Events/_EventForm.cshtml" model="Model" />
+    <div class="mt-4 d-flex gap-2">
+        <button class="btn btn-primary" type="submit">Güncelle</button>
+        <a class="btn btn-outline-secondary" href="/Organizer/Events">Vazgeç</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

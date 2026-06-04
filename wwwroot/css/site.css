@@ -1,0 +1,120 @@
+html {
+  font-size: 14px;
+  min-height: 100%;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin-bottom: 64px;
+  background: #f6f8fb;
+  color: #18202f;
+}
+
+.footer {
+  bottom: 0;
+  line-height: 60px;
+  position: absolute;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.hero-section {
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(12, 17, 29, .86), rgba(12, 17, 29, .38)),
+    url("https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1800&q=80") center/cover;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  min-height: 390px;
+  padding: 48px;
+}
+
+.hero-content {
+  max-width: 720px;
+}
+
+.hero-content h1 {
+  font-size: clamp(2.5rem, 4vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  max-width: 620px;
+}
+
+.page-heading {
+  margin-bottom: 1.5rem;
+}
+
+.page-heading h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.page-heading p {
+  color: #687386;
+  margin-bottom: 0;
+}
+
+.event-card {
+  border: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.event-card .card-img-top {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.detail-image {
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.metric-card,
+.auth-panel {
+  background: white;
+  border: 1px solid #e6eaf0;
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.metric-card span {
+  color: #687386;
+  display: block;
+  font-size: .9rem;
+}
+
+.metric-card strong {
+  display: block;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.auth-panel {
+  max-width: 460px;
+}
+
+.form-narrow {
+  max-width: 680px;
+}
+
+.btn,
+.form-control,
+.form-select,
+.alert,
+.card {
+  border-radius: 8px;
+}

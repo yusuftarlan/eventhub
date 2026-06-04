@@ -1,0 +1,13 @@
+@model Event
+@{
+    ViewData["Title"] = "Etkinlik Sil";
+}
+
+<div class="alert alert-danger">
+    <h1 class="h4">Etkinlik silinsin mi?</h1>
+    <p class="mb-0">@Model.Title etkinliği ve katılım/favori kayıtları silinecek.</p>
+</div>
+<form method="post" class="d-flex gap-2">
+    <button class="btn btn-danger" type="submit">Sil</button>
+    <a class="btn btn-outline-secondary" href="/Organizer/Events">Vazgeç</a>
+</form>

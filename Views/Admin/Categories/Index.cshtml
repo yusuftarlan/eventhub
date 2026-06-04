@@ -1,0 +1,28 @@
+@model List<Category>
+@{
+    ViewData["Title"] = "Kategoriler";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div><h1 class="h3 mb-1">Kategoriler</h1><p class="text-muted mb-0">Etkinlik kategorilerini yönetin.</p></div>
+    <a class="btn btn-primary" href="/Admin/Categories/Create">Yeni Kategori</a>
+</div>
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead><tr><th>Ad</th><th>Açıklama</th><th>Etkinlik Sayısı</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Events.Count</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-primary" href="/Admin/Categories/Edit/@item.Id">Düzenle</a>
+                    <a class="btn btn-sm btn-outline-danger" href="/Admin/Categories/Delete/@item.Id">Sil</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

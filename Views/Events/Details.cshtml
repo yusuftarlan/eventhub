@@ -1,0 +1,47 @@
+@model EventDetailsViewModel
+@{
+    ViewData["Title"] = Model.Event.Title;
+}
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <img class="detail-image shadow-sm" src="@(string.IsNullOrWhiteSpace(Model.Event.ImageUrl) ? "https://images.unsplash.com/photo-1515169067865-5387ec356754?auto=format&fit=crop&w=1200&q=80" : Model.Event.ImageUrl)" alt="@Model.Event.Title">
+    </div>
+    <div class="col-lg-5">
+        <span class="badge text-bg-primary mb-2">@Model.Event.CategoryName</span>
+        <h1 class="h2">@Model.Event.Title</h1>
+        <p class="text-muted">@Model.FullDescription</p>
+        <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item px-0"><strong>Tarih:</strong> @Model.Event.Date.ToString("dd MMM yyyy HH:mm")</li>
+            <li class="list-group-item px-0"><strong>Konum:</strong> @Model.Event.Location</li>
+            <li class="list-group-item px-0"><strong>Organizatör:</strong> @Model.OrganizerName</li>
+            <li class="list-group-item px-0"><strong>Kontenjan:</strong> @Model.Event.ParticipantCount / @Model.Event.Capacity</li>
+        </ul>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <div class="d-flex gap-2 flex-wrap">
+                @if (Model.Event.IsJoined)
+                {
+                    <form asp-action="Leave" asp-route-id="@Model.Event.Id" method="post">
+                        <button class="btn btn-outline-danger" type="submit">Etkinlikten Ayrıl</button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-action="Join" asp-route-id="@Model.Event.Id" method="post">
+                        <button class="btn btn-success" type="submit" @(Model.Event.RemainingCapacity == 0 ? "disabled" : "")>Katıl</button>
+                    </form>
+                }
+                <form asp-action="Favorite" asp-route-id="@Model.Event.Id" method="post">
+                    <button class="btn @(Model.Event.IsFavorite ? "btn-warning" : "btn-outline-warning")" type="submit">
+                        @(Model.Event.IsFavorite ? "Favoriden Çıkar" : "Favoriye Ekle")
+                    </button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Katılmak için giriş yapın</a>
+        }
+    </div>
+</div>

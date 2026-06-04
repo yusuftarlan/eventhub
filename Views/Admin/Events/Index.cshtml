@@ -1,0 +1,31 @@
+@model List<Event>
+@{
+    ViewData["Title"] = "Admin Etkinlik Yönetimi";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div><h1 class="h3 mb-1">Admin Etkinlik Yönetimi</h1><p class="text-muted mb-0">Tüm etkinlikleri görüntüleyin, katılımcıları inceleyin ve gerekli düzenlemeleri yapın.</p></div>
+    <a class="btn btn-primary" href="/Organizer/Events/Create">Yeni Etkinlik</a>
+</div>
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead><tr><th>Etkinlik</th><th>Organizatör</th><th>Kategori</th><th>Tarih</th><th>Katılım</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Organizer?.FullName</td>
+                <td>@item.Category?.Name</td>
+                <td>@item.Date.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@item.Participants.Count / @item.Capacity</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-info" href="/Organizer/Events/Participants/@item.Id">Katılımcıları Gör</a>
+                    <a class="btn btn-sm btn-outline-primary" href="/Organizer/Events/Edit/@item.Id">Etkinliği Düzenle</a>
+                    <a class="btn btn-sm btn-outline-danger" href="/Organizer/Events/Delete/@item.Id">Etkinliği Sil</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

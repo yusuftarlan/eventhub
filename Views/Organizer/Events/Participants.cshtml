@@ -1,0 +1,21 @@
+@model EventParticipantsViewModel
+@{
+    ViewData["Title"] = "Katılımcılar";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div><h1 class="h3 mb-1">@Model.EventTitle</h1><p class="text-muted mb-0">Katılımcı listesi</p></div>
+    <a class="btn btn-outline-secondary" href="/Organizer/Events">Geri</a>
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <thead><tr><th>Ad Soyad</th><th>E-posta</th><th>Katılım Tarihi</th></tr></thead>
+        <tbody>
+        @foreach (var item in Model.Participants)
+        {
+            <tr><td>@item.FullName</td><td>@item.Email</td><td>@item.JoinDate.ToString("dd.MM.yyyy HH:mm")</td></tr>
+        }
+        </tbody>
+    </table>
+</div>
+@if (!Model.Participants.Any()) { <div class="alert alert-info">Henüz katılımcı yok.</div> }

@@ -1,0 +1,17 @@
+@model List<UserRowViewModel>
+@{
+    ViewData["Title"] = "Admin Users";
+}
+
+<div class="page-heading"><h1>Kullanıcılar</h1><p>Sistemde kayıtlı kullanıcılar ve rolleri.</p></div>
+<div class="table-responsive">
+    <table class="table">
+        <thead><tr><th>Ad Soyad</th><th>E-posta</th><th>Roller</th><th>Kayıt Tarihi</th></tr></thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr><td>@item.FullName</td><td>@item.Email</td><td>@item.Roles</td><td>@item.CreatedAt.ToString("dd.MM.yyyy")</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

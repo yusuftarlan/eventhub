@@ -1,0 +1,14 @@
+@model Category
+@{
+    ViewData["Title"] = "Kategori Sil";
+}
+
+<div class="alert alert-danger">
+    <h1 class="h4">Kategori silinsin mi?</h1>
+    <p class="mb-0">@Model.Name kategorisini silmek üzeresiniz.</p>
+</div>
+<form method="post" class="d-flex gap-2">
+    <button class="btn btn-danger" type="submit" @(Model.Events.Any() ? "disabled" : "")>Sil</button>
+    <a class="btn btn-outline-secondary" href="/Admin/Categories">Vazgeç</a>
+</form>
+@if (Model.Events.Any()) { <p class="text-danger mt-3">Bu kategoriye bağlı etkinlik olduğu için silinemez.</p> }

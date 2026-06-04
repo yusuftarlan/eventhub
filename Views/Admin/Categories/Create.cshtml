@@ -1,0 +1,14 @@
+@model Category
+@{
+    ViewData["Title"] = "Kategori Oluştur";
+}
+
+<h1 class="h3 mb-4">Kategori Oluştur</h1>
+<form method="post" class="form-narrow">
+    <partial name="~/Views/Admin/Categories/_CategoryForm.cshtml" model="Model" />
+    <div class="mt-4 d-flex gap-2">
+        <button class="btn btn-primary" type="submit">Kaydet</button>
+        <a class="btn btn-outline-secondary" href="/Admin/Categories">Vazgeç</a>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
