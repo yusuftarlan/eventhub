@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true);
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -30,6 +31,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddSingleton<DatabaseStatusService>();
+builder.Services.AddSingleton<LocalSettingsService>();
 
 var app = builder.Build();
 
@@ -47,6 +50,27 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.Use(async (context, next) =>
+{
+    var databaseStatus = context.RequestServices.GetRequiredService<DatabaseStatusService>();
+    var path = context.Request.Path;
+    var isAllowedWhileOffline =
+        path.StartsWithSegments("/Account") ||
+        path.StartsWithSegments("/Setup") ||
+        path.StartsWithSegments("/lib") ||
+        path.StartsWithSegments("/css") ||
+        path.StartsWithSegments("/js") ||
+        path.StartsWithSegments("/favicon.ico");
+
+    if (!databaseStatus.IsAvailable && !isAllowedWhileOffline)
+    {
+        context.Response.Redirect("/Setup/Database");
+        return;
+    }
+
+    await next();
+});
+
 app.MapStaticAssets();
 
 app.MapControllerRoute(
@@ -54,6 +78,16 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-await DbInitializer.SeedAsync(app.Services);
+var databaseStatus = app.Services.GetRequiredService<DatabaseStatusService>();
+try
+{
+    await DbInitializer.SeedAsync(app.Services);
+    databaseStatus.MarkAvailable();
+}
+catch (Exception ex)
+{
+    databaseStatus.MarkUnavailable(ex.Message);
+    app.Logger.LogWarning(ex, "Database is not available. Setup mode is active.");
+}
 
 app.Run();

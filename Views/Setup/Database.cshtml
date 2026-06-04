@@ -1,0 +1,64 @@
+@model DatabaseSetupViewData
+@{
+    ViewData["Title"] = "Veritabani Kurulumu";
+}
+
+<div class="page-heading">
+    <h1>Veritabani Kurulumu</h1>
+    <p>SQL Server baglantisini guncelleyin ve sistemi tekrar baglayin.</p>
+</div>
+
+@if (ViewBag.DatabaseAvailable == true)
+{
+    <div class="alert alert-success">Veritabani baglantisi su anda aktif.</div>
+}
+else
+{
+    <div class="alert alert-warning">
+        Veritabani baglantisi aktif degil. SQL Server bilgilerini girip baglantiyi test edin.
+        @if (!string.IsNullOrWhiteSpace(ViewBag.LastError as string))
+        {
+            <div class="small mt-2">@ViewBag.LastError</div>
+        }
+    </div>
+}
+
+<div class="auth-panel mx-auto">
+    <form asp-action="Database" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Server" class="form-label"></label>
+            <input asp-for="Server" class="form-control" placeholder="localhost veya 192.168.1.10" />
+            <span asp-validation-for="Server" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Port" class="form-label"></label>
+            <input asp-for="Port" class="form-control" />
+            <span asp-validation-for="Port" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Database" class="form-label"></label>
+            <input asp-for="Database" class="form-control" />
+            <span asp-validation-for="Database" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="UserId" class="form-label"></label>
+            <input asp-for="UserId" class="form-control" />
+            <span asp-validation-for="UserId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <button class="btn btn-primary w-100" type="submit">Baglantiyi Kaydet ve Test Et</button>
+    </form>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
