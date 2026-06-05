@@ -8,4 +8,5 @@ obj/
 *.mdf
 *.ldf
 *.log
+appsettings.Local.json
 secrets.json
