@@ -12,6 +12,6 @@ obj/
 *.log
 appsettings.Local.json
 secrets.json
-Dockerfile*
+Dockerfile.sqlserver.local
 README.md
 Proje-gereksinimleri.md
