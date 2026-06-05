@@ -5,7 +5,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true);
+
+var localSettingsPath = Path.Combine(builder.Environment.ContentRootPath, "appsettings.Local.json");
+if (File.Exists(localSettingsPath) && new FileInfo(localSettingsPath).Length > 0)
+{
+    builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true);
+}
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
