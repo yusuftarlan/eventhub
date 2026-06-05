@@ -1,0 +1,17 @@
+bin/
+obj/
+.git/
+.github/
+.vs/
+.vscode/
+*.user
+*.suo
+*.db
+*.mdf
+*.ldf
+*.log
+appsettings.Local.json
+secrets.json
+Dockerfile*
+README.md
+Proje-gereksinimleri.md
